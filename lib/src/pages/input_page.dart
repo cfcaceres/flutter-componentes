@@ -35,6 +35,8 @@ class _InputPageState extends State<InputPage> {
           Divider(),
           _crearFecha(context),
           Divider(),
+          _crearDropdown(),
+          Divider(),
           Text('Nombre es: $_nombre'),
           Text('Email: $_email'),
           Text('Password: $_password'),
@@ -42,6 +44,41 @@ class _InputPageState extends State<InputPage> {
       ),
     );
   }
+
+  List<String> _poderes = ['Volar', 'Rayos X', 'Super Aliento', 'Super Fuerza'];
+  String _opcionSeleccionada = 'Volar';
+  // drow
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = [];
+
+    _poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
+
+    return lista;
+  }
+
+  Widget _crearDropdown() {
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0),
+        DropdownButton(
+          value: _opcionSeleccionada,
+          items: getOpcionesDropdown(),
+          onChanged: (opt) {
+            setState(() {
+              _opcionSeleccionada = opt.toString();
+            });
+          },
+        ),
+      ],
+    );
+  }
+  // drow
 
   Widget _createInputPassword() {
     return TextField(
